@@ -1,0 +1,25 @@
+Setup a squid proxy using scripts that I can deploy
+by running basic commands
+
+SQUID SETUP
+http_port 8000
+#cache_dir ufs /opt/squid/var/cache/ 500 16 256
+acl my_machine src 95.44.12.149
+acl home_net src 95.44.12.125
+#acl all_nets src 0.0.0.0
+
+http_access allow my_machine
+http_access allow home_net
+#http_access all_nets
+#http_access allow all
+forwarded_for off
+
+
+Linux setup
+
+scp squid.conf root@178.62.21.100:~
+
+apt-get update
+apt-get -y install squid3
+cd /etc/squid3
+mv squid.conf squid.conf.backup
